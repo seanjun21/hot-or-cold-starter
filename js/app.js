@@ -1,5 +1,27 @@
+function random() {
+    var value = 5;
+
+    function set(newValue) {
+        value = newValue;
+    }
+
+    return {
+        value: value,
+        set: set
+    };
+
+}
+
+var value = 10;
+
+console.log(random().value)) // == 5
+console.log(value) // == 10
 
 $(document).ready(function(){
+    var rory;
+    var randomNumber;
+    newGame();
+
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -17,19 +39,17 @@ $(document).ready(function(){
     })
 
     //New Game
-    var newGame = function() {
-        //Computer generates random number (1 - 100)
-    	var randomNumber = Math.floor((Math.random() * 100) + 1);
-        return randomNumber;
+    function newGame() {
+        randomNumber = Math.floor((Math.random() * 100) + 1);
+
     }
-
-    newGame();
-
 
     //The Game
     var theGuess = function() {
         var userNumber = $("#userGuess").val();	
         var distance = Math.abs(userNumber - randomNumber);
+
+        console.log(rory)
 
         console.log(distance);
 
