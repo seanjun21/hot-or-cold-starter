@@ -1,25 +1,6 @@
-function random() {
-    var value = 5;
-
-    function set(newValue) {
-        value = newValue;
-    }
-
-    return {
-        value: value,
-        set: set
-    };
-
-}
-
-var value = 10;
-
-console.log(random().value)) // == 5
-console.log(value) // == 10
-
 $(document).ready(function(){
-    var rory;
     var randomNumber;
+    var guessCounter = 0;
     newGame();
 
 	/*--- Display information modal box ---*/
@@ -27,6 +8,11 @@ $(document).ready(function(){
     	$(".overlay").fadeIn(1000);
 
   	});
+
+    /*--- Launch New Game ---*/
+    $(".new").click(function(){
+        newGame();
+    });
 
   	/*--- Hide information modal box ---*/
   	$("a.close").click(function(){
@@ -38,39 +24,50 @@ $(document).ready(function(){
         theGuess();
     })
 
-    //New Game
+    /*--- New Game ---*/
     function newGame() {
         randomNumber = Math.floor((Math.random() * 100) + 1);
-
+        $("#count").text("0"); 
+        $("#guessList").text("");
+        $("#userGuess").val(null);
+        $("#feedback").text("Make Your Guess!");
     }
 
-    //The Game
+    /*--- The Game ---*/
     var theGuess = function() {
         var userNumber = $("#userGuess").val();	
         var distance = Math.abs(userNumber - randomNumber);
-
-        console.log(rory)
-
-        console.log(distance);
+        
 
     	if (userNumber <= 100 && userNumber >= 1) {
     		if (distance === 0) {
-    			console.log("You got it!");
+                $("#guessList").append("<li>" + userNumber + "</li>");
+                $("#feedback").text("You got it!!");
+             /* var replay = confirm("Play Again?");  
+                    if (replay === true) {
+                        newGame();
+                    }     */     
     		} else if (distance <= 5) {
-                console.log("Burning");
-            } else if (distance <= 15) {
-                console.log("Hot");
+                $("#guessList").append("<li>" + userNumber + "</li>");
+                $("#feedback").text("Burning!");
+            } else if (distance <= 15) {   
+                $("#guessList").append("<li>" + userNumber + "</li>");    
+                $("#feedback").text("Hot");
             } else if (distance <= 25) {
-                console.log("Warm");
+                $("#guessList").append("<li>" + userNumber + "</li>");
+                $("#feedback").text("Warm");
             } else if (distance <= 50) {
-                console.log("Cold");
+                $("#guessList").append("<li>" + userNumber + "</li>");
+                $("#feedback").text("Cold");
             } else if (distance <= 99) {
-                console.log("Freezing");
+                $("#guessList").append("<li>" + userNumber + "</li>");
+                $("#feedback").text("Freezing!!");
             }
+
+            guessCounter++;
+            $("#count").text(guessCounter);
 	    }
     }
-
-
 });
 
 
